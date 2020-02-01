@@ -35,8 +35,8 @@ resource "aws_route_table" "app_route_table" {
 
 # Create RT associations
 resource  "aws_route_table_association" "app_assoc" {
-  subnet_id  = "aws_subnet.app_subnet.id"
-  route_table_id = "aws_route_table.app_route_table.id"
+  subnet_id  = aws_subnet.app_subnet.id
+  route_table_id = aws_route_table.app_route_table.id
 }
 
 # Create a subnet
@@ -55,6 +55,14 @@ resource "aws_security_group" "allow_tls" {
   description = "Allow TLS inbound traffic"
   vpc_id      = "${aws_vpc.app_vpc.id}"
 
+
+  ingress {
+    # TLS (change to whatever ports you need)
+    from_port   = 3000
+    to_port     = 3000
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 
   ingress {
     # TLS (change to whatever ports you need)

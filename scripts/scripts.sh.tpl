@@ -1,6 +1,5 @@
 #!/bin/bash
 
-cd /home/ubuntu/app
-npm install
-npm start
-exit
+cd app
+sudo npm install
+sudo npm start
